@@ -23,8 +23,7 @@ int main(int argc, char *argv[])
     int left = dw / 2;
     int right = dw - (dw / 2);
 
-    copyMakeBorder(img, paddedImage, top, bottom, left, right, cv::BORDER_CONSTANT, cv::Scalar(0, 0, 0));
-
+    copyMakeBorder(resizedImage, paddedImage, top, bottom, left, right, cv::BORDER_CONSTANT, cv::Scalar(255, 255, 255));
     imshow("Imagen redimensionada", paddedImage);
     waitKey(0);
     return 0;
