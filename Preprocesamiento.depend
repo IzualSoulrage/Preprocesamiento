@@ -1,8 +1,10 @@
 # depslib dependency file v1.0
-1779873276 source:c:\users\jluis\documents\proyectos\cpp\preprocesamiento\main.cpp
+1779960142 source:c:\users\jluis\documents\proyectos\cpp\preprocesamiento\main.cpp
 	<opencv2/core/core.hpp>
 	<opencv2/imgproc/imgproc.hpp>
 	<opencv2/highgui/highgui.hpp>
+	<ctime>
+	<cstdlib>
 
 1773933522 c:\users\jluis\opencv\include\opencv2\core\core.hpp
 	"opencv2/core.hpp"
