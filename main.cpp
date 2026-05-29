@@ -37,9 +37,10 @@ int main(int argc, char *argv[])
 {
     srand(time(NULL));
     const char* srcPath = "images/";
-    string path = "dataset/";
+    string pathMad = "dataset/maduras/";
+    string pathVer = "dataset/verdes/";
     string destName, imgName, imgWrt;
-    int n = 1;
+    int nm = 1, nv = 1;
     DIR *dir;
     struct dirent *ent;
     if ((dir = opendir (srcPath)) != NULL) {
@@ -51,11 +52,11 @@ int main(int argc, char *argv[])
 
         if(s > 4){
             string ext = imgName.substr(s-4,4);
-            if(ext == ".jpg"){
+            if(ext == ".jpg" || "jpeg"){
                 imgWrt = srcPath + imgName;
                 Mat img = imread(imgWrt, IMREAD_COLOR);
                 Mat rotated [5];
-                int sectionSize = 450;
+                int sectionSize = 350;
                 int tam = 300;
 
                 randomRotation(img, rotated, 5, sectionSize);
@@ -63,11 +64,17 @@ int main(int argc, char *argv[])
                 resizeSet(rotated, 5, tam);
 
                 for(int i = 0; i < 5; i++){
-                   // imshow("Imagen redimensionada", rotated[i]);
-                    destName = path + "ds" + to_string(n) + ".jpg";
-                    n++;
+                    // imshow("Imagen redimensionada", rotated[i]);
+                    if(imgName.at(0) == 'm'){
+                        destName = pathMad + "madura_" + to_string(nm) + ".jpg";
+                        nm++;
+                    }else{
+                        destName = pathVer + "verde_" + to_string(nv) + ".jpg";
+                        nv++;
+                    }
+
                     imwrite(destName, rotated[i]);
-                    //waitKey(0);
+                   //waitKey(0);
                 }
             }
         }
@@ -79,9 +86,6 @@ int main(int argc, char *argv[])
       perror ("");
       return EXIT_FAILURE;
     }
-
-
-
     return 0;
 }
 
