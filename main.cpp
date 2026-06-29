@@ -37,8 +37,8 @@ int main(int argc, char *argv[])
 {
     srand(time(NULL));
     const char* srcPath = "images/";
-    string pathMad = "dataset/maduras/";
-    string pathVer = "dataset/verdes/";
+    string pathMad = "C:/Users/JLuis/Documents/dataset/maduras/";
+    string pathVer = "C:/Users/JLuis/Documents/dataset/verdes/";
     string destName, imgName, imgWrt;
     int nm = 1, nv = 1;
     DIR *dir;
@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
                 imgWrt = srcPath + imgName;
                 Mat img = imread(imgWrt, IMREAD_COLOR);
                 Mat rotated [5];
-                int sectionSize = 400   ;
+                int sectionSize = 300;
                 int tam = 224;
 
                 randomRotation(img, rotated, 5, sectionSize);
