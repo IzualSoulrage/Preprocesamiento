@@ -54,8 +54,8 @@ int main(int argc, char *argv[])
                 imgWrt = srcPath + imgName;
                 Mat img = imread(imgWrt, IMREAD_COLOR);
                 Mat rotated [5];
-                int sectionSize = 550   ;
-                int tam = 300;
+                int sectionSize = 400   ;
+                int tam = 224;
 
                 randomRotation(img, rotated, 5, sectionSize);
                 cropSet(rotated, 5, sectionSize);
