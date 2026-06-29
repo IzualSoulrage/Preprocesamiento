@@ -44,9 +44,7 @@ int main(int argc, char *argv[])
     DIR *dir;
     struct dirent *ent;
     if ((dir = opendir (srcPath)) != NULL) {
-      /* print all the files and directories within directory */
       while ((ent = readdir (dir)) != NULL) {
-        //printf ("%s\n", ent->d_name);
         imgName = ent->d_name;
         int s = imgName.size();
 
@@ -56,7 +54,7 @@ int main(int argc, char *argv[])
                 imgWrt = srcPath + imgName;
                 Mat img = imread(imgWrt, IMREAD_COLOR);
                 Mat rotated [5];
-                int sectionSize = 350;
+                int sectionSize = 550   ;
                 int tam = 300;
 
                 randomRotation(img, rotated, 5, sectionSize);
@@ -64,17 +62,14 @@ int main(int argc, char *argv[])
                 resizeSet(rotated, 5, tam);
 
                 for(int i = 0; i < 5; i++){
-                    // imshow("Imagen redimensionada", rotated[i]);
-                    if(imgName.at(0) == 'm'){
+                    if(imgName.at(0) == 'M' || imgName.at(0) == 'm'){
                         destName = pathMad + "madura_" + to_string(nm) + ".jpg";
                         nm++;
                     }else{
                         destName = pathVer + "verde_" + to_string(nv) + ".jpg";
                         nv++;
                     }
-
                     imwrite(destName, rotated[i]);
-                   //waitKey(0);
                 }
             }
         }
