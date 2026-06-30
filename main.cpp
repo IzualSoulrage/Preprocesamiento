@@ -10,29 +10,20 @@ using namespace std;
 using namespace cv;
 
 
-void randomRotation(Mat img, Mat* imgSet, int n, int s){
+void randomRotation(Mat img, Mat* imgSet, int n, int s, int t){
     int x = img.cols / 2;
     int y = img.rows / 2;
     double angle;
     imgSet[0] = img;
+    imgSet[0] = imgSet[0](Rect(imgSet[0].cols/2-s/2, imgSet[0].rows/2 - s/2, s, s));
+        resize(imgSet[0], imgSet[0], Size(t, t), 0, 0, INTER_LINEAR);
     for(int i = 1; i < n; i++){
         angle = (rand() % (90 - 10) + 10) + (90 * (i - 1));
         warpAffine(img, imgSet[i], getRotationMatrix2D(Point2f(x,y), angle, 1.0), Size(img.cols, img.rows) );
-    }
-}
-
-void resizeSet(Mat* imgSet, int n, int s){
-    for(int i = 0; i < n; i++){
-        resize(imgSet[i], imgSet[i], Size(s, s), 0, 0, INTER_LINEAR);
-    }
-}
-
-void cropSet(Mat* imgSet, int n, int s){
-    for(int i = 0; i < n; i++){
         imgSet[i] = imgSet[i](Rect(imgSet[i].cols/2-s/2, imgSet[i].rows/2 - s/2, s, s));
+        resize(imgSet[i], imgSet[i], Size(t, t), 0, 0, INTER_LINEAR);
     }
 }
-
 int main(int argc, char *argv[])
 {
     srand(time(NULL));
@@ -44,6 +35,7 @@ int main(int argc, char *argv[])
     DIR *dir;
     struct dirent *ent;
     if ((dir = opendir (srcPath)) != NULL) {
+        cout << "Procesando imagenes...." << endl;
       while ((ent = readdir (dir)) != NULL) {
         imgName = ent->d_name;
         int s = imgName.size();
@@ -57,9 +49,7 @@ int main(int argc, char *argv[])
                 int sectionSize = 300;
                 int tam = 224;
 
-                randomRotation(img, rotated, 5, sectionSize);
-                cropSet(rotated, 5, sectionSize);
-                resizeSet(rotated, 5, tam);
+                randomRotation(img, rotated, 5, sectionSize, tam);
 
                 for(int i = 0; i < 5; i++){
                     if(imgName.at(0) == 'M' || imgName.at(0) == 'm'){
@@ -73,11 +63,10 @@ int main(int argc, char *argv[])
                 }
             }
         }
-
       }
+      cout << "Imagenes guardadas en: C:/Users/JLuis/Documents/dataset/" << endl;
       closedir (dir);
     } else {
-      /* could not open directory */
       perror ("");
       return EXIT_FAILURE;
     }
